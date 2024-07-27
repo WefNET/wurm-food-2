@@ -1,0 +1,8 @@
+<!-- {{ target | json }} -->
+
+<span>{{ target.id }}</span>
+<span *ngIf="target.material">, {{ target.material }}</span>
+<span *ngIf="target.pstate && target.pstate !== 'none'">, {{ target.pstate }}</span>
+<span *ngIf="target.realtemplate">, {{ target.realtemplate }}</span>
+<span *ngIf="target.cstate">, {{ target.cstate }}</span>
+<span *ngIf="target.ratio">, {{ target.ratio }}% of dry ingredients</span>

@@ -1,0 +1,9 @@
+<!-- {{ result | json }} -->
+
+<ng-container *ngIf="result.id && result.name !== undefined">
+    {{ result.name }}
+</ng-container>
+
+<ng-container *ngIf="result.id && result.name === undefined">
+    {{ result.id }}
+</ng-container>

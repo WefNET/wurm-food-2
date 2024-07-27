@@ -1,0 +1,72 @@
+<p-table [value]="recipes" dataKey="recipeid" [tableStyle]="{ 'min-width': '80rem' }" sortMode="multiple"
+    [globalFilterFields]="['name', 'skill']">
+<ng-template pTemplate="header">
+    <tr>
+        <th style="width: 1em"></th>
+        <th pSortableColumn="name">
+            Name <p-sortIcon field="name" />
+        </th>
+        <th pSortableColumn="skill">
+            Skill <p-sortIcon field="skill" />
+        </th>
+        <th pSortableColumn="result.difficulty" style="width:20%">
+            Difficulty <p-sortIcon field="result.difficulty" />
+        </th>
+        <th pSortableColumn="nameable">
+            Nameable <p-sortIcon field="result.nameable" />
+        </th>
+        <th pSortableColumn="lootable">
+            Lootable <p-sortIcon field="result.lootable" />
+        </th>
+    </tr>
+    <tr>
+        <th style="width: 1em"></th>
+        <th>
+            <p-columnFilter type="text" field="name" placeholder="Search by name" ariaLabel="Filter Name" [matchMode]="'contains'"/>
+        </th>
+        <th>
+            <p-columnFilter field="skill" matchMode="equals" [showMenu]="false">
+                <ng-template pTemplate="filter" let-skillFilter let-filter="filterCallback">
+                    <p-dropdown [ngModel]="skillFilter" [options]="skills" (onChange)="filter($event.value)"
+                        placeholder="Select One" [showClear]="true">
+                        <ng-template let-option pTemplate="item">
+                            {{ option.label }}
+                        </ng-template>
+                    </p-dropdown>
+                </ng-template>
+            </p-columnFilter>
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+    </tr>
+</ng-template>
+<ng-template pTemplate="body" let-recipe let-expanded="expanded">
+    <tr>
+        <td>
+            <p-button type="button" pRipple [pRowToggler]="recipe" [text]="true" [rounded]="true" [plain]="true"
+                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+        </td>
+        <td>{{ recipe.name }}</td>
+        <td>{{ recipe.skill }}</td>
+        <td>{{ recipe.result?.difficulty ?? 'N/A'}}</td>
+        <td>{{ recipe.nameable }}</td>
+        <td>
+            <span *ngIf="recipe.lootable">
+                Creature: {{ recipe.lootable.creature }}<br /> Rarity: {{ recipe.lootable.rarity
+                }}</span>
+        </td>
+    </tr>
+</ng-template>
+<ng-template pTemplate="rowexpansion" let-recipe>
+    <tr>
+        <td></td>
+        <td colspan="5">
+            <app-recipe-expando [recipe]="recipe"></app-recipe-expando>
+        </td>
+    </tr>
+</ng-template>
+</p-table>

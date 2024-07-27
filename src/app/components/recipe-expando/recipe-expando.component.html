@@ -1,0 +1,45 @@
+<div class="expando-panel">
+    <!-- <span (click)="showRecipe(recipe)">{{ recipe.name }}</span> -->
+
+    <div *ngIf="recipe.active">
+        <h4>Activated Tool:</h4>
+        {{ recipe.active.id }}
+    </div>
+
+    <div *ngIf="recipe.target">
+        <h4>Target:</h4>
+        {{ recipe.target.id }}
+    </div>
+
+    <div *ngIf="recipe.containers">
+        <h4>Containers:</h4>
+        <ul>
+            <li *ngFor="let container of recipe.containers">
+                {{ container.id }} <span *ngIf="container.difficulty">(diff: {{ container.difficulty }})</span>
+            </li>
+        </ul>
+    </div>
+
+    <div *ngIf="recipe.cookers">
+        <h4>Cookers:</h4>
+        <ul>
+            <li *ngFor="let cooker of recipe.cookers">
+                {{ cooker.id }} <span *ngIf="cooker.difficulty">(diff: {{ cooker.difficulty }})</span>
+            </li>
+        </ul>
+    </div>
+
+    <div *ngIf="recipe.ingredients">
+        <h4>Ingredients:</h4>
+        <app-ingredients-list [ingredients]="recipe.ingredients"></app-ingredients-list>
+    </div>
+
+    <div *ngIf="recipe.trigger">
+        <h4>Trigger:</h4>
+        {{ recipe.trigger }}
+    </div>
+
+    <div *ngIf="recipe.result">
+        <h4>Result:</h4>
+        <app-result [result]="recipe.result"></app-result>
+    </div>

@@ -1,0 +1,38 @@
+<ng-container *ngIf="ingredients.mandatory">
+    <h5>Mandatory:</h5>
+    <ul>
+        <li *ngFor="let ingredient of ingredients.mandatory">
+            <app-target [target]="ingredient"></app-target>
+        </li>
+    </ul>
+</ng-container>
+
+<ng-container *ngIf="ingredients.optional">
+    <h5>Optional:</h5>
+    <ul>
+        <li *ngFor="let ingredient of ingredients.optional">
+            <app-target [target]="ingredient"></app-target>
+        </li>
+    </ul>
+</ng-container>
+
+<ng-container *ngIf="ingredients.oneof">
+    <h5>One Of:</h5>
+    <p class="no-margins" *ngFor="let ingredient of ingredients.oneof">
+        <app-oneof [oneof]="ingredient"></app-oneof>
+    </p>
+</ng-container>
+
+<ng-container *ngIf="ingredients.oneormore">
+    <h5>One or More:</h5>
+    <p class="no-margins" *ngFor="let ingredient of ingredients.oneormore">
+        <app-oneof [oneof]="ingredient"></app-oneof>
+    </p>
+</ng-container>
+
+<ng-container *ngIf="ingredients.zeroorone">
+    <h5>Zero or One:</h5>
+    <p class="no-margins" *ngFor="let ingredient of ingredients.zeroorone">
+        <app-oneof [oneof]="ingredient"></app-oneof>
+    </p>
+</ng-container>
