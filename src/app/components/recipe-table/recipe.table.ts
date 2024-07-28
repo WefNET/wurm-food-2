@@ -9,7 +9,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { RecipeExpandoComponent } from '../recipe-expando/recipe-expando.component';
-
+import { FilterService } from 'primeng/api';
 
 @Component({
   selector: 'app-recipe-table',
@@ -31,9 +31,14 @@ export class RecipeTableComponent implements OnInit {
     {label: 'hot food cooking', value: 'hot food cooking'},
     {label: 'milling', value: 'milling'}
   ];
+
+  globalFilter: string = '';
+
+
       
   constructor(
-    private dataService: DataService) {
+    private dataService: DataService,
+    private filterService: FilterService) {
   }
 
   ngOnInit(): void {
@@ -43,5 +48,30 @@ export class RecipeTableComponent implements OnInit {
       this.recipes = data;
     });
   }
+
+  containsValue(obj: any, searchString: string): boolean {
+    if (typeof obj === 'string') {
+      return obj.toLowerCase().includes(searchString.toLowerCase());
+    }
+  
+    if (Array.isArray(obj)) {
+      return obj.some(item => this.containsValue(item, searchString));
+    }
+  
+    if (typeof obj === 'object' && obj !== null) {
+      return Object.values(obj).some(value => this.containsValue(value, searchString));
+    }
+  
+    return false;
+  }
+
+
+  filterData() {
+    return this.recipes.filter(recipe => 
+      this.containsValue(recipe.ingredients, this.globalFilter)
+    );
+  }
+
+  
 
 }
